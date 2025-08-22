@@ -9,4 +9,7 @@
     <string name="error">Error: %1$s</string>
     <string name="add_user">Add User</string>
     <string name="no_users">No users added yet!</string>
+    <string name="expand_button_content_description">See more or less information about a user.</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>

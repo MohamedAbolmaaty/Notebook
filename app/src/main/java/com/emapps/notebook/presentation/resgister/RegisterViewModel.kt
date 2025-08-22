@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 sealed interface RegisterIntent {
     data class UpdateName(val name: String) : RegisterIntent
-    data class UpdateAge(val age: Int) : RegisterIntent
+    data class UpdateAge(val age: String) : RegisterIntent
     data class UpdateJobTitle(val jobTitle: String) : RegisterIntent
     data class UpdateGender(val gender: String) : RegisterIntent
     object Register : RegisterIntent
@@ -22,7 +22,7 @@ sealed interface RegisterIntent {
 
 data class RegisterState(
     val name: String = "",
-    val age: Int = 0,
+    val age: String = "",
     val jobTitle: String = "",
     val gender: String = "",
     val isSaving: Boolean = false,
@@ -54,13 +54,13 @@ class RegisterViewModel @Inject constructor(
             try {
                 val user = User(
                     name = _state.value.name,
-                    age = _state.value.age,
+                    age = _state.value.age.toInt(),
                     jobTitle = _state.value.jobTitle,
                     gender = _state.value.gender
                 )
                 insertUserUseCase(user)
                 _state.update { it.copy(isSaving = false, saveSuccess = true, error = null,
-                    name = "", age = 0, jobTitle = "", gender = "") }
+                    name = "", age = "", jobTitle = "", gender = "") }
             } catch (e: Exception) {
                 _state.update {
                     it.copy(isSaving = false, saveSuccess = false, error = e.message)
